@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: movie-reservation-db
+    environment:
+      POSTGRES_USER: movies
+      POSTGRES_PASSWORD: movies123
+      POSTGRES_DB: movie_reservation
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U movies -d movie_reservation"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: movie-reservation-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    # WHY: appendonly ensures Redis persists locks across restarts
+    # This is important for demo purposes but not critical since DB is authoritative
+    command: redis-server --appendonly yes
+
+volumes:
+  postgres_data:
+  redis_data:
