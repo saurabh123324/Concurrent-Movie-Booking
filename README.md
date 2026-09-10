@@ -1,4 +1,4 @@
-# Movie Reservation System
+ 
 
 A minimal but correct backend credibility demo showing concurrent seat selection, time-bound seat holds, distributed locking, and failure safety.
 
