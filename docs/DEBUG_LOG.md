@@ -22,8 +22,8 @@ zsh: command not found: docker
 ```bash
 brew services list
 # Output showed:
-# postgresql@15 started revanthsuddala
-# redis         started revanthsuddala
+# postgresql@15  
+# redis          
 ```
 
 ---
